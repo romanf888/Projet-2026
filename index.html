@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avenir YouTube - Projet 2026</title>
+    
+    <!-- Favicon (Fichier .ico) -->
+    <link rel="icon" type="image/x-icon" href="favico.ico">
+    <link rel="apple-touch-icon" href="favico.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Police Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Configuration Style -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.1)',
+                            border: 'rgba(255, 255, 255, 0.15)',
+                            highlight: 'rgba(255, 255, 255, 0.05)',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .liquid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; overflow: hidden; background: #050505;
+        }
+        
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6;
+            animation: blob 15s infinite alternate;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #4F46E5; }
+        .orb-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: #EC4899; animation-delay: 2s; }
+        .orb-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: #06B6D4; animation-delay: 4s; }
+
+        .glass-card {
+            background: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .glass-card:hover {
+            background: rgba(30, 30, 35, 0.7);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title::after {
+            content: ''; height: 1px; flex-grow: 1;
+            background: linear-gradient(90deg, rgba(255,255,255,0.2), transparent);
+        }
+
+        .btn-ios {
+            background: rgba(255, 255, 255, 0.1); border-radius: 999px;
+            padding: 10px 24px; font-weight: 500; font-size: 0.9rem;
+            transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .btn-ios:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
+        .btn-primary { background: #ffffff; color: black; }
+        .btn-primary:hover { background: #f0f0f0; box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+
+        /* Scrollbar Stylisée et Visible (Remplace hide-scrollbar) */
+        .library-scroll {
+            -ms-overflow-style: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.05);
+        }
+        .library-scroll::-webkit-scrollbar {
+            height: 8px; /* Hauteur visible pour scroll horizontal */
+            display: block;
+        }
+        .library-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        .library-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        .library-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+    <div class="liquid-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div style="position:absolute; inset:0; background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.03%22/%3E%3C/svg%3E'); pointer-events:none;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed top-6 left-0 w-full flex justify-center z-50 px-4">
+        <nav class="glass-card !rounded-full px-6 py-3 flex items-center space-x-8 shadow-2xl">
+            <a href="#" class="font-bold text-lg tracking-tight">Projet<span class="text-indigo-400">2026</span></a>
+            <div class="hidden md:flex space-x-6 text-sm font-medium text-gray-300">
+                <a href="#library" class="hover:text-white transition-colors">Liste de jeux</a>
+                <a href="#design" class="hover:text-white transition-colors">Nouveau Design</a>
+                <a href="#collabs" class="hover:text-white transition-colors">Collaborations</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero -->
+    <section class="min-h-[80vh] flex flex-col justify-center items-center px-6 relative pt-20">
+        <div class="text-center max-w-4xl mx-auto z-10 animate-float">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-indigo-300 mb-8 backdrop-blur-md">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                Avenir YouTube 2026 - romanf888
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-8 leading-tight">
+                Découvrer les nouveautés <br>
+                <span class="text-gradient">de 2026</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-400 font-light mb-12 max-w-2xl mx-auto leading-relaxed">
+                Présentation des nouveauts prévu pour la chaîne YouTube de romanf888 en 2026. 
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#library" class="btn-ios btn-primary">Voir les nouveautés</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bibliothèque de Jeux (Horizontal Scroll) -->
+    <section id="library" class="py-12 px-6 w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="section-title">Liste des jeux vidéo sur ma chaine en 2026</div>
+            
+            <!-- Container Scrollable - Ajout ID et Classe 'library-scroll' -->
+            <div id="libraryContainer" class="flex overflow-x-auto library-scroll space-x-6 pb-12 snap-x snap-mandatory px-4 md:px-0">
+                
+                <!-- Card Jeu 1 -->
+                <div class="glass-card flex-none w-[280px] md:w-[320px] h-[450px] relative overflow-hidden group cursor-pointer snap-center">
+                    <div class="absolute inset-0 bg-[url('https://store-images.s-microsoft.com/image/apps.703.13739535057760905.34778648-088c-45a3-9d45-1117ca041901.c4d90513-3be4-4a22-9cd6-85a7ffa8df7f')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                    
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">Collaboration</span>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <h3 class="text-2xl font-bold mb-2">Call of Duty Warzone</h3>
+                        <p class="text-gray-400 text-xs mb-4 line-clamp-2">Battle Royal dans un style FPS réaliste.</p>
+                        <div class="flex items-center justify-between border-t border-white/10 pt-4">
+                            <span class="text-xs text-indigo-400 font-semibold">2026</span>
+                            <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                                ➔
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Jeu 2 -->
+                <div class="glass-card flex-none w-[280px] md:w-[320px] h-[450px] relative overflow-hidden group cursor-pointer snap-center">
+                    <div class="absolute inset-0 bg-[url('https://image.jeuxvideo.com/medias-sm/170230/1702303334-1969-jaquette-avant.jpeg')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                    
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">Solo</span>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <h3 class="text-2xl font-bold mb-2">Grand Therf Autot VI</h3>
+                        <p class="text-gray-400 text-xs mb-4 line-clamp-2">Jeu à monde ouvert dans Vice City.</p>
+                        <div class="flex items-center justify-between border-t border-white/10 pt-4">
+                            <span class="text-xs text-indigo-400 font-semibold">2026</span>
+                            <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                                ➔
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Jeu 3 -->
+                <div class="glass-card flex-none w-[280px] md:w-[320px] h-[450px] relative overflow-hidden group cursor-pointer snap-center">
+                    <div class="absolute inset-0 bg-[url('https://sm.ign.com/ign_fr/game/f/fortnite/fortnite_sw5m.jpg')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                    
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-yellow-500 text-black text-[10px] font-bold px-2 py-1 rounded-full">LIVE</span>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <h3 class="text-2xl font-bold mb-2">Fortnite</h3>
+                        <p class="text-gray-400 text-xs mb-4 line-clamp-2">Battle Royal et Mode Créatif.</p>
+                        <div class="flex items-center justify-between border-t border-white/10 pt-4">
+                            <span class="text-xs text-indigo-400 font-semibold">Revient en 2026</span>
+                            <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                                ➔
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Card Jeu 4 (Placeholder) -->
+                 <div class="glass-card flex-none w-[280px] md:w-[320px] h-[450px] relative overflow-hidden group cursor-pointer snap-center border-dashed border-2 border-white/20 bg-transparent flex flex-col items-center justify-center">
+                    <div class="text-4xl text-white/20 mb-4">+</div>
+                    <p class="text-white/40 font-medium">La liste va bientôt être mis à jour</p>
+                </div>
+
+            </div>
+            
+            <!-- Widget Live Rétréci -->
+            <div class="mt-4 mx-auto max-w-lg">
+                <div class="glass-card px-4 py-3 flex items-center justify-between gap-4 border-white/5 bg-white/5 hover:bg-white/10 transition cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                        <h3 class="text-sm font-bold text-white">Nouveau LIVE</h3>
+                        <span class="text-gray-500 text-[10px] uppercase tracking-wide px-2 py-0.5 border border-white/10 rounded">Chaque semaine</span>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Design -->
+    <section id="design" class="py-12 px-6 max-w-7xl mx-auto overflow-hidden">
+        <div class="section-title">Nouveau style de Miniatures</div>
+        
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+            <div class="w-full md:w-1/3">
+                <h2 class="text-3xl font-bold mb-4">L'interface des miniatures évolue !</h2>
+                <p class="text-gray-400 mb-6">
+                    Nous abandonnons l'ancien style un peu brouillon pour un style beaucoup plus professionnel avec une interface légèrement différente.
+                </p>
+                <div class="flex gap-2 text-sm font-medium text-gray-300">
+                    <span class="px-3 py-1 rounded-md bg-white/5 border border-white/10">Fortnite Porting</span>
+                    <span class="px-3 py-1 rounded-md bg-white/5 border border-white/10">Blender</span>
+                    <span class="px-3 py-1 rounded-md bg-white/5 border border-white/10">Photoshop</span>
+                </div>
+            </div>
+
+            <!-- Mockups Miniatures -->
+            <div class="w-full md:w-2/3 h-[300px] relative flex items-center justify-center">
+                <!-- Carte Avant (Focus) -->
+                <div class="w-[80%] max-w-md aspect-video bg-gray-900 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden border border-white/20 relative group hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-[url('https://i.imgur.com/b6rxVXD.png')] bg-cover bg-center"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <div class="inline-block px-2 py-0.5 bg-red-600 text-white text-[10px] font-bold rounded mb-2">Nouveauté</div>
+                        <h3 class="text-2xl font-bold text-white italic tracking-tighter drop-shadow-lg">Nouvel interface</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Collaborations (Image + Texte) -->
+    <section id="collabs" class="py-24 px-6 max-w-4xl mx-auto text-center">
+        <div class="section-title justify-center">Collaborations</div>
+
+        <div class="glass-card p-8 md:p-12 relative overflow-hidden group">
+            <!-- Image de fond illustrative -->
+            <div class="w-full h-64 md:h-80 bg-gray-800 rounded-2xl overflow-hidden relative mb-8 border border-white/10">
+                <img src="https://f.hellowork.com/blogdumoderateur/2025/10/youtube-fonctionnalites-collaborations-1200x628.jpg" 
+                     alt="Collaboration YouTube" 
+                     class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700">
+                
+                <!-- Overlay "YouTube Feature" stylisé -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="bg-black/40 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 flex items-center gap-3">
+                        <div class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+                        <span class="font-bold tracking-wider text-sm">Collaborations</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-3xl font-bold mb-4">Augmentation des partenariats (Feat)</h2>
+            <p class="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto">
+                Pour l'année 2026, la chaîne prévoit d'augmenter le nombre de colaborations avec d'autres créateur de contenus. Pas d'inquiètude, les Feat principaux comme ceux réaliser avec Tazdra resterons en majorité.
+            </p>
+            <div class="mt-8">
+                <button class="px-6 py-2 rounded-full border border-white/20 text-sm text-gray-300 hover:bg-white hover:text-black transition-all">
+                    Suggérer un duo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-gray-500 text-sm">
+        <p>&copy; © 2025 Projet 2026 et romanf888 studio's – Tous droits réservés • </p>
+    </footer>
+
+    <!-- Script pour activer le défilement horizontal avec la molette de souris (pour Desktop) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('libraryContainer');
+            if(container) {
+                container.addEventListener('wheel', (e) => {
+                    // Si on scroll verticalement, on transforme en horizontal
+                    if (e.deltaY !== 0) {
+                        e.preventDefault();
+                        container.scrollLeft += e.deltaY;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
